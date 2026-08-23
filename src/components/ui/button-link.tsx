@@ -37,7 +37,7 @@ export function ButtonLink({
       <a
         href={href}
         target="_blank"
-        rel="noreferrer"
+        rel="noopener noreferrer"
         aria-label={ariaLabel}
         className={classes}
       >

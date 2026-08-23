@@ -38,7 +38,7 @@ export function Footer() {
             <a
               href="https://github.com/Akhyame"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="text-muted transition-colors duration-200 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-md px-1 py-1"
             >
               GitHub

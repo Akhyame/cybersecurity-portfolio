@@ -65,7 +65,7 @@ export function ContactContent() {
                 <a
                   href="https://linkedin.com/in/siham-akhyame"
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="mt-1 inline-block text-slate-100 transition-colors hover:text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                 >
                   linkedin.com/in/siham-akhyame
@@ -79,7 +79,7 @@ export function ContactContent() {
                 <a
                   href="https://github.com/Akhyame"
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="mt-1 inline-block text-slate-100 transition-colors hover:text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                 >
                   github.com/Akhyame
