@@ -3,25 +3,10 @@ import { notFound } from "next/navigation";
 import { NotionProjectDetail } from "@/components/projects/notion-project-detail";
 import {
   getProjectBlocks,
-  getPublishedProjectBySlug,
-  getPublishedProjects,
+  getVisibleProjectBySlug,
 } from "@/lib/notion/projects";
 
-export const dynamicParams = false;
-
-export async function generateStaticParams() {
-  const publishedProjects = await getPublishedProjects();
-
-  return publishedProjects
-    .map((project) => project.slug)
-    .filter(
-      (slug): slug is string =>
-        typeof slug === "string" &&
-        slug.trim().length > 0 &&
-        /^[a-z0-9-]+$/i.test(slug.trim()),
-    )
-    .map((slug) => ({ slug }));
-}
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
   params,
@@ -29,7 +14,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const project = await getPublishedProjectBySlug(slug);
+  const project = await getVisibleProjectBySlug(slug);
 
   if (!project) {
     return {
@@ -52,7 +37,7 @@ export default async function ProjectPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const project = await getPublishedProjectBySlug(slug);
+  const project = await getVisibleProjectBySlug(slug);
 
   if (!project || !project.slug) {
     notFound();
