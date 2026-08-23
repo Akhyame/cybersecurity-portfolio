@@ -44,6 +44,26 @@ export type PortfolioProject = {
   reportPdf: NotionFileAsset | null;
 };
 
+export type NotionLab = {
+  id: string;
+  name: string;
+  status: string | null;
+  slug: string | null;
+  shortDescription: string | null;
+  categories: string[];
+  skills: string[];
+  technologies: string[];
+  difficulty: string | null;
+  featured: boolean;
+  githubUrl: string | null;
+  demoUrl: string | null;
+  demoVideo: NotionFileAsset | null;
+  publishDemo: boolean;
+  cover: NotionFileAsset | null;
+  labDate: string | null;
+  sortOrder: number | null;
+};
+
 export type NotionBlock = {
   id: string;
   type: string;

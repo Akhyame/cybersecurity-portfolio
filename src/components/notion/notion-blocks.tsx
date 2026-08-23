@@ -210,6 +210,21 @@ function renderBlock(block: NotionBlock, context: RenderContext, nearestHeading:
       return readableText(blockData?.["rich_text"]) ? <blockquote className="border-l border-primary/40 pl-4 italic text-muted">{renderRichTextData(blockData?.["rich_text"])}</blockquote> : null;
     case "callout":
       return readableText(blockData?.["rich_text"]) ? <aside className="rounded-xl border border-border bg-surface/80 p-4 text-muted">{renderRichTextData(blockData?.["rich_text"])}</aside> : null;
+    case "toggle": {
+      const summary = readableText(blockData?.["rich_text"]);
+      const hasChildren = Array.isArray(block.children) && block.children.length > 0;
+      if (!summary && !hasChildren) {
+        return null;
+      }
+      return (
+        <details className="rounded-xl border border-border bg-surface/60 p-4 text-muted">
+          <summary className="cursor-pointer font-medium text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background">
+            {summary || "Details"}
+          </summary>
+          {hasChildren ? <div className="mt-4">{renderBlocks(block.children ?? [], context, nearestHeading)}</div> : null}
+        </details>
+      );
+    }
     case "code": {
       const text = readableText(blockData?.["rich_text"]);
       const language = typeof blockData?.["language"] === "string" ? (blockData["language"] as string) : "";
