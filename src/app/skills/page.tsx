@@ -1,19 +1,12 @@
 import type { Metadata } from "next";
-import { Section, SectionHeading } from "@/components/ui/section";
+import { SkillsContent } from "@/components/skills/skills-content";
 
 export const metadata: Metadata = {
-  title: "Skills",
+  title: "Technical Skills",
+  description:
+    "Evidence-backed cybersecurity and DevSecOps capabilities developed through academic work, practical labs, and hands-on projects.",
 };
 
 export default function SkillsPage() {
-  return (
-    <Section>
-      <SectionHeading
-        eyebrow="SKILLS"
-        title="Evidence-Backed Skills"
-        level="h1"
-        description="Technical capabilities connected to practical implementation, testing, and documented project evidence."
-      />
-    </Section>
-  );
+  return <SkillsContent />;
 }
