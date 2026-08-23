@@ -10,8 +10,14 @@ type NotionProjectDetailProps = {
   blocks: NotionBlock[];
 };
 
+function isSafeExternalUrl(url: string | null): url is string {
+  return typeof url === "string" && /^https?:\/\//i.test(url);
+}
+
 export function NotionProjectDetail({ project, blocks }: NotionProjectDetailProps) {
   const coverUrl = project.cover && /^https?:\/\//i.test(project.cover.url) ? project.cover.url : null;
+  const demoVideoCandidate = project.publishDemo ? project.demoVideo?.url ?? null : null;
+  const demoVideoUrl = isSafeExternalUrl(demoVideoCandidate) ? demoVideoCandidate : null;
 
   return (
     <Section>
@@ -21,7 +27,9 @@ export function NotionProjectDetail({ project, blocks }: NotionProjectDetailProp
         </ButtonLink>
 
         <div className="mb-5 flex flex-wrap gap-2">
-          <Badge tone="cyan">Published</Badge>
+          <Badge tone={project.status === "Published" ? "success" : "blue"}>
+            {project.status ?? "Not provided"}
+          </Badge>
           {project.difficulty ? <Badge tone="blue">{project.difficulty}</Badge> : null}
           {project.categories.map((category) => (
             <Badge key={`${project.id}-${category}`} tone="neutral">
@@ -50,19 +58,29 @@ export function NotionProjectDetail({ project, blocks }: NotionProjectDetailProp
         </div>
       ) : null}
 
+      {demoVideoUrl ? (
+        <section aria-labelledby="video-demo-heading" className="mt-8">
+          <h2 id="video-demo-heading" className="font-heading text-2xl font-semibold tracking-[-0.04em] text-foreground">
+            Video Demo
+          </h2>
+          <video
+            className="mt-4 aspect-video w-full rounded-xl border border-border bg-slate-950 object-contain"
+            src={demoVideoUrl}
+            controls
+            controlsList="nodownload"
+            playsInline
+            preload="metadata"
+          />
+        </section>
+      ) : null}
+
       <div className="mt-8 grid gap-6 lg:grid-cols-[1.7fr_0.9fr]">
         <Card className="p-6 sm:p-8">
-          <div className="mb-6">
-            <h2 className="font-heading text-2xl font-semibold tracking-[-0.04em] text-foreground">
-              Project overview
-            </h2>
-          </div>
-
           {blocks.length > 0 ? (
             <NotionBlocks blocks={blocks} />
           ) : (
             <p className="text-base leading-7 text-muted">
-              This project is published, but its full detail content is not yet available in the CMS.
+              Project content is not currently available in the CMS.
             </p>
           )}
         </Card>
@@ -86,8 +104,8 @@ export function NotionProjectDetail({ project, blocks }: NotionProjectDetailProp
                   Technical documentation
                 </ButtonLink>
               ) : null}
-              {project.reportPdf ? (
-                <ButtonLink href={project.reportPdf.url} variant="ghost" className="w-full">
+              {project.reportPdf && isSafeExternalUrl(project.reportPdf.url) ? (
+                <ButtonLink href={project.reportPdf.url} variant="secondary" className="w-full">
                   Academic report PDF
                 </ButtonLink>
               ) : null}
@@ -103,9 +121,7 @@ export function NotionProjectDetail({ project, blocks }: NotionProjectDetailProp
                     {technology}
                   </Badge>
                 ))
-              ) : (
-                <Badge tone="neutral">Security engineering</Badge>
-              )}
+              ) : null}
             </div>
           </Card>
 

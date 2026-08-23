@@ -130,6 +130,27 @@ export async function getPublishedProjectBySlug(slug: string): Promise<Portfolio
   return matched;
 }
 
+export async function getVisibleFeaturedProjectBySlug(
+  slug: string,
+): Promise<PortfolioProject | null> {
+  const trimmedSlug = slug.trim();
+
+  if (!trimmedSlug || !/^[a-z0-9-]+$/i.test(trimmedSlug)) {
+    return null;
+  }
+
+  const projects = await queryAllProjects();
+
+  return (
+    projects.find(
+      (project) =>
+        project.slug?.trim().toLowerCase() === trimmedSlug.toLowerCase() &&
+        project.featured === true &&
+        (project.status === "In Progress" || project.status === "Published"),
+    ) ?? null
+  );
+}
+
 async function fetchBlocksRecursively(
   blockId: string,
   cursor: string | null = null,

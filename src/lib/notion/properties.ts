@@ -262,6 +262,8 @@ export function mapNotionPageToProject(page: unknown): PortfolioProject {
     difficulty: select(properties["Difficulty"] ?? null),
     slug: richText(properties["Slug"] ?? null) || null,
     cover: firstFile(properties["Cover"] ?? null),
+    demoVideo: firstFile(properties["Demo Video"] ?? null),
+    publishDemo: checkbox(properties["Publish Demo"] ?? null),
     sortOrder: number(properties["Sort Order"] ?? null),
     reportPdf: firstFile(properties["Report PDF"] ?? null),
   };

@@ -38,6 +38,8 @@ export type PortfolioProject = {
   difficulty: string | null;
   slug: string | null;
   cover: NotionFileAsset | null;
+  demoVideo: NotionFileAsset | null;
+  publishDemo: boolean;
   sortOrder: number | null;
   reportPdf: NotionFileAsset | null;
 };

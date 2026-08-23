@@ -1,12 +1,36 @@
 import type { Metadata } from "next";
-import { KubernetesProjectDetail } from "@/components/projects/kubernetes-project-detail";
+import { notFound } from "next/navigation";
+import { NotionProjectDetail } from "@/components/projects/notion-project-detail";
+import {
+  getProjectBlocks,
+  getVisibleFeaturedProjectBySlug,
+} from "@/lib/notion/projects";
 
-export const metadata: Metadata = {
-  title: "Kubernetes Multi-Tenant Security Platform | Portfolio",
-  description:
-    "Detailed project page for a Kubernetes multi-tenant security platform built with secure defaults, policy enforcement, network segmentation, and GitOps deployment patterns.",
-};
+const projectSlug = "kubernetes-multi-tenant-security-platform";
 
-export default function Page() {
-  return <KubernetesProjectDetail />;
+export const dynamic = "force-dynamic";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const project = await getVisibleFeaturedProjectBySlug(projectSlug);
+
+  if (!project) {
+    return { title: "Project not found" };
+  }
+
+  return {
+    title: project.name,
+    description: project.shortDescription ?? undefined,
+  };
+}
+
+export default async function Page() {
+  const project = await getVisibleFeaturedProjectBySlug(projectSlug);
+
+  if (!project) {
+    notFound();
+  }
+
+  const blocks = await getProjectBlocks(project.id);
+
+  return <NotionProjectDetail project={project} blocks={blocks} />;
 }
