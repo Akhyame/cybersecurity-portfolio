@@ -34,6 +34,17 @@ function isBlocksResponse(value: unknown): value is NotionBlocksResponse {
   );
 }
 
+function isValidSlug(slug: string): boolean {
+  return slug.length > 0 && /^[a-z0-9-]+$/i.test(slug);
+}
+
+function isVisibleProject(project: PortfolioProject): boolean {
+  return (
+    project.status === "Published" ||
+    (project.featured === true && project.status === "In Progress")
+  );
+}
+
 function sortProjects(projects: PortfolioProject[]): PortfolioProject[] {
   return [...projects].sort((left, right) => {
     const leftOrder = left.sortOrder ?? Number.MAX_SAFE_INTEGER;
@@ -78,20 +89,10 @@ async function queryAllProjects(): Promise<PortfolioProject[]> {
   return sortProjects(allProjects);
 }
 
-export async function getPublishedProjects(): Promise<PortfolioProject[]> {
-  const projects = await queryAllProjects();
-
-  return projects.filter((project) => project.status === "Published");
-}
-
-export async function getFeaturedProjects(): Promise<PortfolioProject[]> {
-  return (await getPublishedProjects()).filter((project) => project.featured === true);
-}
-
-export async function getPublishedProjectBySlug(slug: string): Promise<PortfolioProject | null> {
+async function queryProjectBySlug(slug: string): Promise<PortfolioProject | null> {
   const trimmedSlug = slug.trim();
 
-  if (!trimmedSlug || !/^[a-z0-9-]+$/i.test(trimmedSlug)) {
+  if (!isValidSlug(trimmedSlug)) {
     return null;
   }
 
@@ -115,40 +116,62 @@ export async function getPublishedProjectBySlug(slug: string): Promise<Portfolio
     throw new Error("Notion slug query response is malformed.");
   }
 
-  const matched = response.results
-    .map((page) => mapNotionPageToProject(page))
-    .find((project) => project.slug?.trim().toLowerCase() === trimmedSlug.toLowerCase());
-
-  if (!matched) {
-    return null;
-  }
-
-  if (matched.status !== "Published") {
-    return null;
-  }
-
-  return matched;
+  return (
+    response.results
+      .map((page) => mapNotionPageToProject(page))
+      .find(
+        (project) =>
+          project.slug?.trim().toLowerCase() === trimmedSlug.toLowerCase(),
+      ) ?? null
+  );
 }
 
-export async function getVisibleFeaturedProjectBySlug(
-  slug: string,
-): Promise<PortfolioProject | null> {
-  const trimmedSlug = slug.trim();
+export async function getPublishedProjects(): Promise<PortfolioProject[]> {
+  const projects = await queryAllProjects();
 
-  if (!trimmedSlug || !/^[a-z0-9-]+$/i.test(trimmedSlug)) {
-    return null;
-  }
+  return projects.filter((project) => project.status === "Published");
+}
 
+export async function getFeaturedProjects(): Promise<PortfolioProject[]> {
+  return (await getPublishedProjects()).filter((project) => project.featured === true);
+}
+
+export async function getHomepageFeaturedProject(): Promise<PortfolioProject | null> {
   const projects = await queryAllProjects();
 
   return (
     projects.find(
       (project) =>
-        project.slug?.trim().toLowerCase() === trimmedSlug.toLowerCase() &&
         project.featured === true &&
-        (project.status === "In Progress" || project.status === "Published"),
+        typeof project.slug === "string" &&
+        isValidSlug(project.slug.trim()) &&
+        isVisibleProject(project),
     ) ?? null
   );
+}
+
+export async function getPublishedProjectBySlug(
+  slug: string,
+): Promise<PortfolioProject | null> {
+  const project = await queryProjectBySlug(slug);
+
+  return project?.status === "Published" ? project : null;
+}
+
+export async function getVisibleProjectBySlug(
+  slug: string,
+): Promise<PortfolioProject | null> {
+  const project = await queryProjectBySlug(slug);
+
+  return project && isVisibleProject(project) ? project : null;
+}
+
+export async function getVisibleFeaturedProjectBySlug(
+  slug: string,
+): Promise<PortfolioProject | null> {
+  const project = await getVisibleProjectBySlug(slug);
+
+  return project?.featured === true ? project : null;
 }
 
 async function fetchBlocksRecursively(
