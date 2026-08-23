@@ -1,19 +1,10 @@
 import type { Metadata } from "next";
-import { Section, SectionHeading } from "@/components/ui/section";
+import { AboutContent } from "@/components/about/about-content";
 
 export const metadata: Metadata = {
   title: "About",
 };
 
 export default function AboutPage() {
-  return (
-    <Section>
-      <SectionHeading
-        eyebrow="ABOUT"
-        title="About Me"
-        level="h1"
-        description="My current focus, practical approach, education, and professional objective in cybersecurity."
-      />
-    </Section>
-  );
+  return <AboutContent />;
 }
