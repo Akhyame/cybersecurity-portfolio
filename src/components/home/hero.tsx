@@ -51,22 +51,17 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="relative mt-2 w-full lg:ml-auto lg:flex lg:h-full lg:items-center lg:justify-end">
-          <div className="pointer-events-none absolute inset-y-0 right-[-8%] w-[120%] bg-gradient-to-l from-background via-background/70 to-transparent lg:right-[-14%]" />
-          <div className="relative h-[280px] w-full overflow-hidden sm:h-[320px] lg:h-[520px] lg:w-[46%] lg:ml-auto">
+        <div className="relative mt-2 flex w-full items-center justify-center lg:ml-auto lg:h-full lg:justify-end">
+          <div className="relative h-[420px] w-full max-w-[360px] overflow-hidden sm:h-[460px] sm:max-w-[420px] lg:ml-auto lg:h-[540px] lg:w-[76%] lg:max-w-[560px]">
             <Image
-              src="/images/siham-akhyame-portrait.png"
+              src="/images/siham-portfolio-portrait-final.png"
               alt="Professional portrait of Siham Akhyame"
               fill
               priority
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 46vw"
-              className="object-cover object-[center_24%]"
-              style={{
-                objectPosition: "center 18%",
-              }}
+              sizes="(max-width: 640px) 90vw, (max-width: 1024px) 70vw, 38vw"
+              className="object-cover object-[center_18%] mix-blend-lighten"
             />
-            <div className="absolute inset-0 bg-gradient-to-l from-background via-background/30 to-transparent" />
-            <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-background via-background/10 to-transparent" />
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-background via-background/20 to-transparent" />
           </div>
         </div>
       </div>
