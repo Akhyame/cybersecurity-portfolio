@@ -11,6 +11,7 @@ export default function AboutPage() {
       <SectionHeading
         eyebrow="ABOUT"
         title="About Me"
+        level="h1"
         description="My current focus, practical approach, education, and professional objective in cybersecurity."
       />
     </Section>

@@ -17,6 +17,7 @@ export default async function ProjectsPage() {
       <SectionHeading
         eyebrow="PROJECTS"
         title="Security Projects"
+        level="h1"
         description="Larger hands-on projects documented through architecture, implementation decisions, security controls, testing, and evidence."
       />
 

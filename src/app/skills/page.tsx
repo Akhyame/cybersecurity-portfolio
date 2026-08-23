@@ -11,6 +11,7 @@ export default function SkillsPage() {
       <SectionHeading
         eyebrow="SKILLS"
         title="Evidence-Backed Skills"
+        level="h1"
         description="Technical capabilities connected to practical implementation, testing, and documented project evidence."
       />
     </Section>

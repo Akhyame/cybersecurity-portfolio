@@ -11,6 +11,7 @@ export default function LabsPage() {
       <SectionHeading
         eyebrow="LABS"
         title="Hands-on Security Labs"
+        level="h1"
         description="Focused security experiments and technical exercises documented through investigation, validation, and lessons learned."
       />
     </Section>

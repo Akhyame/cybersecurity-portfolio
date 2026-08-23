@@ -26,6 +26,7 @@ type SectionHeadingProps = {
   description?: string;
   align?: "left" | "center";
   className?: string;
+  level?: "h1" | "h2";
 };
 
 export function SectionHeading({
@@ -34,9 +35,11 @@ export function SectionHeading({
   description,
   align = "left",
   className = "",
+  level = "h2",
 }: SectionHeadingProps) {
   const alignmentClass = align === "center" ? "mx-auto text-center" : "text-left";
   const maxWidthClass = align === "center" ? "max-w-3xl" : "max-w-2xl";
+  const Heading = level;
 
   return (
     <header className={`${alignmentClass} ${maxWidthClass} ${className}`.trim()}>
@@ -46,9 +49,9 @@ export function SectionHeading({
         </p>
       ) : null}
 
-      <h2 className="font-heading text-3xl font-semibold leading-tight tracking-[-0.04em] text-foreground sm:text-4xl lg:text-5xl">
+      <Heading className="font-heading text-3xl font-semibold leading-tight tracking-[-0.04em] text-foreground sm:text-4xl lg:text-5xl">
         {title}
-      </h2>
+      </Heading>
 
       {description ? (
         <p
