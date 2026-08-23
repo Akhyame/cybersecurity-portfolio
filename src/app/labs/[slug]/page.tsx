@@ -14,12 +14,17 @@ export async function generateMetadata({
   const lab = await getPublishedLabBySlug(slug);
 
   if (!lab) {
-    return { title: "Lab not found" };
+    return {
+      title: "Lab not found",
+    };
   }
 
   return {
     title: lab.name,
     description: lab.shortDescription ?? undefined,
+    alternates: {
+      canonical: `/labs/${encodeURIComponent(slug)}`,
+    },
   };
 }
 
@@ -36,5 +41,6 @@ export default async function LabPage({
   }
 
   const blocks = await getLabBlocks(lab.id);
+
   return <NotionLabDetail lab={lab} blocks={blocks} />;
 }

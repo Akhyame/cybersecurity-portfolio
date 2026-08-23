@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { NotionProjectDetail } from "@/components/projects/notion-project-detail";
-import { getProjectBlocks, getPublishedProjectBySlug, getPublishedProjects } from "@/lib/notion/projects";
+import {
+  getProjectBlocks,
+  getPublishedProjectBySlug,
+  getPublishedProjects,
+} from "@/lib/notion/projects";
 
 export const dynamicParams = false;
 
@@ -12,7 +16,9 @@ export async function generateStaticParams() {
     .map((project) => project.slug)
     .filter(
       (slug): slug is string =>
-        typeof slug === "string" && slug.trim().length > 0 && /^[a-z0-9-]+$/i.test(slug.trim()),
+        typeof slug === "string" &&
+        slug.trim().length > 0 &&
+        /^[a-z0-9-]+$/i.test(slug.trim()),
     )
     .map((slug) => ({ slug }));
 }
@@ -34,6 +40,9 @@ export async function generateMetadata({
   return {
     title: project.name,
     description: project.shortDescription ?? undefined,
+    alternates: {
+      canonical: `/projects/${encodeURIComponent(slug)}`,
+    },
   };
 }
 

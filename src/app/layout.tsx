@@ -16,13 +16,74 @@ const spaceGrotesk = Space_Grotesk({
   display: "swap",
 });
 
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL?.trim() || "http://localhost:3000";
+
+const siteName = "Siham Akhyame | Cybersecurity Portfolio";
+
+const siteDescription =
+  "Cybersecurity portfolio showcasing hands-on projects and labs in cloud-native security, network isolation, access control, automation, and observability.";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
+
   title: {
-    default: "Siham Akhyame | Cybersecurity Portfolio",
+    default: siteName,
     template: "%s | Siham Akhyame",
   },
-  description:
-    "Cybersecurity portfolio showcasing hands-on projects and labs in cloud-native security, network isolation, access control, automation, and observability.",
+
+  description: siteDescription,
+  applicationName: siteName,
+  authors: [
+    {
+      name: "Siham Akhyame",
+      url: siteUrl,
+    },
+  ],
+  creator: "Siham Akhyame",
+  publisher: "Siham Akhyame",
+  category: "technology",
+
+  keywords: [
+    "Siham Akhyame",
+    "cybersecurity portfolio",
+    "cybersecurity projects",
+    "cybersecurity labs",
+    "DevSecOps",
+    "Kubernetes security",
+    "cloud security",
+    "network security",
+    "identity and access management",
+    "GitOps",
+    "digital forensics",
+  ],
+
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: siteUrl,
+    siteName,
+    title: siteName,
+    description: siteDescription,
+  },
+
+  twitter: {
+    card: "summary",
+    title: siteName,
+    description: siteDescription,
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
 };
 
 export default function RootLayout({
@@ -42,9 +103,11 @@ export default function RootLayout({
 
         <div className="flex min-h-screen flex-col">
           <Navbar />
+
           <main id="main-content" className="flex-1">
             {children}
           </main>
+
           <Footer />
         </div>
       </body>

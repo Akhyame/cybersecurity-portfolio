@@ -14,12 +14,17 @@ export async function generateMetadata(): Promise<Metadata> {
   const project = await getVisibleFeaturedProjectBySlug(projectSlug);
 
   if (!project) {
-    return { title: "Project not found" };
+    return {
+      title: "Project not found",
+    };
   }
 
   return {
     title: project.name,
     description: project.shortDescription ?? undefined,
+    alternates: {
+      canonical: `/projects/${projectSlug}`,
+    },
   };
 }
 

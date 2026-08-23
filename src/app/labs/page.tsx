@@ -6,6 +6,7 @@ import { Section, SectionHeading } from "@/components/ui/section";
 import { getPublishedLabs } from "@/lib/notion/labs";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/labs" },
   title: "Security Labs",
   description: "Published cybersecurity labs documenting practical investigation, validation, and lessons learned.",
 };

@@ -6,6 +6,7 @@ import { Section, SectionHeading } from "@/components/ui/section";
 import { getPublishedProjects } from "@/lib/notion/projects";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/projects" },
   title: "Projects",
 };
 
