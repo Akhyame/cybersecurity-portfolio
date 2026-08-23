@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const navItems = [
   { label: "Home", href: "/" },
@@ -33,6 +33,8 @@ function CloseIcon() {
 export function Navbar() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const firstMobileLinkRef = useRef<HTMLAnchorElement>(null);
 
   const isActiveLink = (href: string) => {
     if (href === "/") return pathname === "/";
@@ -40,6 +42,27 @@ export function Navbar() {
   };
 
   const handleNavSelect = () => setIsMobileMenuOpen(false);
+
+  useEffect(() => {
+    if (!isMobileMenuOpen) {
+      return;
+    }
+
+    firstMobileLinkRef.current?.focus();
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") {
+        return;
+      }
+
+      setIsMobileMenuOpen(false);
+      menuButtonRef.current?.focus();
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isMobileMenuOpen]);
 
   return (
     <header className="sticky top-0 z-50 border-b border-border/80 bg-background/80 backdrop-blur-md">
@@ -82,6 +105,7 @@ export function Navbar() {
 
           <button
             type="button"
+            ref={menuButtonRef}
             className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-surface/60 text-foreground transition-colors duration-200 hover:border-primary/50 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background md:hidden"
             aria-label={isMobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
             aria-expanded={isMobileMenuOpen}
@@ -101,13 +125,14 @@ export function Navbar() {
           className="border-t border-border bg-background/95 backdrop-blur-md md:hidden"
         >
           <div className="site-container flex flex-col py-3">
-            {navItems.map((item) => {
+            {navItems.map((item, index) => {
               const active = isActiveLink(item.href);
 
               return (
                 <Link
                   key={item.href}
                   href={item.href}
+                  ref={index === 0 ? firstMobileLinkRef : undefined}
                   onClick={handleNavSelect}
                   className={[
                     "rounded-lg px-3 py-2 text-sm font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
