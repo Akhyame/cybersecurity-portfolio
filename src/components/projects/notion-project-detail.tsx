@@ -77,7 +77,7 @@ export function NotionProjectDetail({ project, blocks }: NotionProjectDetailProp
       <div className="mt-8 grid gap-6 lg:grid-cols-[1.7fr_0.9fr]">
         <Card className="p-6 sm:p-8">
           {blocks.length > 0 ? (
-            <NotionBlocks blocks={blocks} enableImageLinks={project.slug === "mini-soc-wazuh-threat-detection"} />
+            <NotionBlocks blocks={blocks} />
           ) : (
             <p className="text-base leading-7 text-muted">
               Project content is not currently available in the CMS.
