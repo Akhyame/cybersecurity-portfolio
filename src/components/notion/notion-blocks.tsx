@@ -457,7 +457,7 @@ function renderBlocks(
   return <div className="space-y-4">{rendered}</div>;
 }
 
-export function NotionBlocks({ blocks, enableImageLinks = false }: { blocks: NotionBlock[]; enableImageLinks?: boolean }) {
+export function NotionBlocks({ blocks, enableImageLinks = true }: { blocks: NotionBlock[]; enableImageLinks?: boolean }) {
   const context = createRenderContext(blocks, enableImageLinks);
   return <div className="space-y-4">{renderBlocks(blocks, context)}</div>;
 }
