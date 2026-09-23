@@ -1,3 +1,4 @@
+import { splitNotionBlocksAtMedia } from "@/lib/notion/evidence-layout";
 import { NotionBlocks } from "@/components/notion/notion-blocks";
 import { Badge } from "@/components/ui/badge";
 import { ButtonLink } from "@/components/ui/button-link";
@@ -16,6 +17,7 @@ function isSafeExternalUrl(url: string | null): url is string {
 
 export function NotionProjectDetail({ project, blocks }: NotionProjectDetailProps) {
   const coverUrl = project.cover && /^https?:\/\//i.test(project.cover.url) ? project.cover.url : null;
+  const { overviewBlocks, mediaBlocks } = splitNotionBlocksAtMedia(blocks);
   const demoVideoCandidate = project.publishDemo ? project.demoVideo?.url ?? null : null;
   const demoVideoUrl = isSafeExternalUrl(demoVideoCandidate) ? demoVideoCandidate : null;
 
@@ -53,7 +55,7 @@ export function NotionProjectDetail({ project, blocks }: NotionProjectDetailProp
           <img
             src={coverUrl}
             alt={`${project.name} cover`}
-            className="max-h-[480px] w-full object-cover"
+            className="h-auto max-h-[680px] w-full object-contain"
           />
         </div>
       ) : null}
@@ -74,15 +76,11 @@ export function NotionProjectDetail({ project, blocks }: NotionProjectDetailProp
         </section>
       ) : null}
 
-      <div className="mt-8 grid gap-6 lg:grid-cols-[1.7fr_0.9fr]">
-        <Card className="p-6 sm:p-8">
-          {blocks.length > 0 ? (
-            <NotionBlocks blocks={blocks} />
-          ) : (
-            <p className="text-base leading-7 text-muted">
-              Project content is not currently available in the CMS.
-            </p>
-          )}
+      <div className="mt-8 grid items-start gap-6 lg:grid-cols-[minmax(0,1.7fr)_minmax(0,0.9fr)]">
+        <Card className="min-w-0 p-6 sm:p-8">
+          {overviewBlocks.length > 0 ? <NotionBlocks blocks={overviewBlocks} /> : mediaBlocks.length === 0 ? (
+            <p className="text-base leading-7 text-muted">Project content is not currently available in the CMS.</p>
+          ) : null}
         </Card>
 
         <div className="space-y-6">
@@ -139,6 +137,11 @@ export function NotionProjectDetail({ project, blocks }: NotionProjectDetailProp
           ) : null}
         </div>
       </div>
+      {mediaBlocks.length > 0 ? (
+        <Card className="mt-8 min-w-0 p-6 sm:p-8">
+          <NotionBlocks blocks={mediaBlocks} />
+        </Card>
+      ) : null}
     </Section>
   );
 }

@@ -120,6 +120,7 @@ type HeadingEntry = {
 type RenderContext = {
   headings: HeadingEntry[];
   headingIds: Map<string, string>;
+  enableImageLinks: boolean;
 };
 
 function headingText(block: NotionBlock): string {
@@ -162,11 +163,12 @@ function collectHeadings(blocks: NotionBlock[], counts = new Map<string, number>
   return headings;
 }
 
-function createRenderContext(blocks: NotionBlock[]): RenderContext {
+function createRenderContext(blocks: NotionBlock[], enableImageLinks: boolean): RenderContext {
   const headings = collectHeadings(blocks);
   return {
     headings,
     headingIds: new Map(headings.map((heading) => [heading.blockId, heading.id])),
+    enableImageLinks,
   };
 }
 
@@ -312,7 +314,24 @@ function renderBlock(block: NotionBlock, context: RenderContext, nearestHeading:
       // eslint-disable-next-line @next/next/no-img-element
       return (
         <figure className="overflow-hidden rounded-xl border border-border bg-slate-950">
-          <img src={source} alt={altText} loading="lazy" className="h-auto w-full max-w-full object-contain" />
+          {context.enableImageLinks && /^https?:\/\//i.test(source) ? (
+            <a
+              href={source}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Open full-size image: ${altText}`}
+              title="Open full-size image in a new tab"
+              className="block cursor-zoom-in rounded-t-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-inset"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={source} alt={altText} loading="lazy" className="h-auto w-full max-w-full object-contain" />
+            </a>
+          ) : (
+            <>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={source} alt={altText} loading="lazy" className="h-auto w-full max-w-full object-contain" />
+            </>
+          )}
           {caption.length > 0 ? <figcaption className="px-3 py-2 text-sm text-muted">{renderRichText(caption)}</figcaption> : null}
         </figure>
       );
@@ -438,7 +457,7 @@ function renderBlocks(
   return <div className="space-y-4">{rendered}</div>;
 }
 
-export function NotionBlocks({ blocks }: { blocks: NotionBlock[] }) {
-  const context = createRenderContext(blocks);
+export function NotionBlocks({ blocks, enableImageLinks = true }: { blocks: NotionBlock[]; enableImageLinks?: boolean }) {
+  const context = createRenderContext(blocks, enableImageLinks);
   return <div className="space-y-4">{renderBlocks(blocks, context)}</div>;
 }
