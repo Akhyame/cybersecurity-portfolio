@@ -327,8 +327,10 @@ function renderBlock(block: NotionBlock, context: RenderContext, nearestHeading:
               <img src={source} alt={altText} loading="lazy" className="h-auto w-full max-w-full object-contain" />
             </a>
           ) : (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={source} alt={altText} loading="lazy" className="h-auto w-full max-w-full object-contain" />
+            <>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={source} alt={altText} loading="lazy" className="h-auto w-full max-w-full object-contain" />
+            </>
           )}
           {caption.length > 0 ? <figcaption className="px-3 py-2 text-sm text-muted">{renderRichText(caption)}</figcaption> : null}
         </figure>
