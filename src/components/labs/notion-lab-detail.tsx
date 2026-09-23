@@ -1,3 +1,4 @@
+import { splitNotionBlocksAtMedia } from "@/lib/notion/evidence-layout";
 import { NotionBlocks } from "@/components/notion/notion-blocks";
 import { Badge } from "@/components/ui/badge";
 import { ButtonLink } from "@/components/ui/button-link";
@@ -16,6 +17,7 @@ function isSafeHttpUrl(url: string | null): url is string {
 
 export function NotionLabDetail({ lab, blocks }: NotionLabDetailProps) {
   const coverUrl = isSafeHttpUrl(lab.cover?.url ?? null) ? lab.cover?.url ?? null : null;
+  const { overviewBlocks, mediaBlocks } = splitNotionBlocksAtMedia(blocks);
   const demoVideoUrl = lab.publishDemo && isSafeHttpUrl(lab.demoVideo?.url ?? null)
     ? lab.demoVideo?.url ?? null
     : null;
@@ -67,9 +69,9 @@ export function NotionLabDetail({ lab, blocks }: NotionLabDetailProps) {
         </section>
       ) : null}
 
-      <div className="mt-8 grid gap-6 lg:grid-cols-[1.7fr_0.9fr]">
-        <Card className="p-6 sm:p-8">
-          {blocks.length > 0 ? <NotionBlocks blocks={blocks} /> : <p className="text-base leading-7 text-muted">Lab content is not currently available in the CMS.</p>}
+      <div className="mt-8 grid items-start gap-6 lg:grid-cols-[minmax(0,1.7fr)_minmax(0,0.9fr)]">
+        <Card className="min-w-0 p-6 sm:p-8">
+          {overviewBlocks.length > 0 ? <NotionBlocks blocks={overviewBlocks} /> : mediaBlocks.length === 0 ? <p className="text-base leading-7 text-muted">Lab content is not currently available in the CMS.</p> : null}
         </Card>
 
         <div className="space-y-6">
@@ -98,6 +100,11 @@ export function NotionLabDetail({ lab, blocks }: NotionLabDetailProps) {
           ) : null}
         </div>
       </div>
+      {mediaBlocks.length > 0 ? (
+        <Card className="mt-8 min-w-0 p-6 sm:p-8">
+          <NotionBlocks blocks={mediaBlocks} />
+        </Card>
+      ) : null}
     </Section>
   );
 }
