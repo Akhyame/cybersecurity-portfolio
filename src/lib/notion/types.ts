@@ -32,7 +32,7 @@ export type PortfolioProject = {
   technologies: string[];
   skills: string[];
   githubUrl: string | null;
-  demoUrl: string | null;
+  linkedinPostUrl: string | null;
   reportUrl: string | null;
   projectDate: string | null;
   difficulty: string | null;
@@ -56,7 +56,7 @@ export type NotionLab = {
   difficulty: string | null;
   featured: boolean;
   githubUrl: string | null;
-  demoUrl: string | null;
+  linkedinPostUrl: string | null;
   demoVideo: NotionFileAsset | null;
   publishDemo: boolean;
   cover: NotionFileAsset | null;

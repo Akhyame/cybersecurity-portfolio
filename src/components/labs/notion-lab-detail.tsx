@@ -21,7 +21,7 @@ export function NotionLabDetail({ lab, blocks }: NotionLabDetailProps) {
   const demoVideoUrl = lab.publishDemo && isSafeHttpUrl(lab.demoVideo?.url ?? null)
     ? lab.demoVideo?.url ?? null
     : null;
-  const demoUrl = lab.publishDemo && isSafeHttpUrl(lab.demoUrl) ? lab.demoUrl : null;
+  const linkedinPostUrl = isSafeHttpUrl(lab.linkedinPostUrl) ? lab.linkedinPostUrl : null;
 
   return (
     <Section className="pt-10 sm:pt-12">
@@ -79,7 +79,7 @@ export function NotionLabDetail({ lab, blocks }: NotionLabDetailProps) {
             <h2 className="font-heading text-xl font-semibold text-foreground">Lab links</h2>
             <div className="mt-4 space-y-3">
               {isSafeHttpUrl(lab.githubUrl) ? <ButtonLink href={lab.githubUrl} variant="secondary" className="w-full">GitHub repository</ButtonLink> : null}
-              {demoUrl ? <ButtonLink href={demoUrl} variant="secondary" className="w-full">Demo</ButtonLink> : null}
+              {linkedinPostUrl ? <ButtonLink href={linkedinPostUrl} variant="secondary" className="w-full">LinkedIn post</ButtonLink> : null}
             </div>
           </Card>
           {lab.technologies.length > 0 ? (

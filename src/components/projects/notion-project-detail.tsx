@@ -87,9 +87,9 @@ export function NotionProjectDetail({ project, blocks }: NotionProjectDetailProp
           <Card className="p-5">
             <h3 className="font-heading text-xl font-semibold text-foreground">Project links</h3>
             <div className="mt-4 space-y-3">
-              {project.demoUrl ? (
-                <ButtonLink href={project.demoUrl} variant="primary" className="w-full">
-                  Live demo
+              {isSafeExternalUrl(project.linkedinPostUrl) ? (
+                <ButtonLink href={project.linkedinPostUrl} variant="primary" className="w-full">
+                  LinkedIn post
                 </ButtonLink>
               ) : null}
               {project.githubUrl ? (

@@ -59,7 +59,7 @@ function mapNotionPageToLab(page: unknown): NotionLab {
     difficulty: select(properties["Difficulty"]),
     featured: checkbox(properties["Featured"]),
     githubUrl: url(properties["GitHub URL"]),
-    demoUrl: url(properties["Demo URL"]),
+    linkedinPostUrl: url(properties["LinkedIn Post URL"] ?? properties["Demo URL"]),
     demoVideo: firstFile(properties["Demo Video"]),
     publishDemo: checkbox(properties["Publish Demo"]),
     cover: firstFile(properties["Cover"]),
