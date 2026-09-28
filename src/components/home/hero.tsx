@@ -54,12 +54,12 @@ export function Hero() {
         <div className="relative mt-2 flex w-full items-center justify-center lg:ml-auto lg:h-full lg:justify-end">
           <div className="relative h-[420px] w-full max-w-[360px] overflow-hidden sm:h-[460px] sm:max-w-[420px] lg:ml-auto lg:h-[540px] lg:w-[76%] lg:max-w-[560px]">
             <Image
-              src="/images/siham-portfolio-portrait-2026.webp"
+              src="/images/siham-portfolio-portrait-cutout-2026.webp"
               alt="Professional portrait of Siham Akhyame"
               fill
               priority
               sizes="(max-width: 640px) 90vw, (max-width: 1024px) 70vw, 38vw"
-              className="object-cover object-[center_18%] mix-blend-lighten"
+              className="object-cover object-[center_18%]"
             />
             <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-background via-background/20 to-transparent" />
           </div>
