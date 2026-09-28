@@ -1,12 +1,18 @@
 import { CertificateCard } from "@/components/certificates/certificate-card";
 import { ButtonLink } from "@/components/ui/button-link";
 import { Section, SectionHeading } from "@/components/ui/section";
-import { getPublishedCertificates } from "@/lib/notion/certificates";
+import { getPublishedCertificates, type PortfolioCertificate } from "@/lib/notion/certificates";
 
 export async function FeaturedCertificates() {
-  const certificates = (await getPublishedCertificates())
-    .filter((certificate) => certificate.featured)
-    .slice(0, 3);
+  let certificates: PortfolioCertificate[];
+  try {
+    certificates = (await getPublishedCertificates())
+      .filter((certificate) => certificate.featured)
+      .slice(0, 3);
+  } catch (error) {
+    console.error("Unable to load featured certificates from Notion", error);
+    return null;
+  }
 
   if (certificates.length === 0) return null;
 
