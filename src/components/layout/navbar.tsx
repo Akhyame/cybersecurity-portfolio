@@ -10,6 +10,7 @@ const navItems = [
   { label: "Projects", href: "/projects" },
   { label: "Labs", href: "/labs" },
   { label: "Skills", href: "/skills" },
+  { label: "Certificates", href: "/certificates" },
   { label: "Resume", href: "/resume" },
   { label: "Contact", href: "/contact" },
 ];
@@ -76,7 +77,7 @@ export function Navbar() {
           <span className="h-2 w-2 rounded-full bg-primary" aria-hidden="true" />
         </Link>
 
-        <nav aria-label="Main navigation" className="hidden items-center gap-7 md:flex">
+        <nav aria-label="Main navigation" className="hidden items-center gap-5 xl:flex">
           {navItems.map((item) => {
             const active = isActiveLink(item.href);
 
@@ -106,7 +107,7 @@ export function Navbar() {
           <button
             type="button"
             ref={menuButtonRef}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-surface/60 text-foreground transition-colors duration-200 hover:border-primary/50 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background md:hidden"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-surface/60 text-foreground transition-colors duration-200 hover:border-primary/50 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background xl:hidden"
             aria-label={isMobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
             aria-expanded={isMobileMenuOpen}
             aria-controls="mobile-navigation"
@@ -122,7 +123,7 @@ export function Navbar() {
         <nav
           id="mobile-navigation"
           aria-label="Mobile navigation"
-          className="border-t border-border bg-background/95 backdrop-blur-md md:hidden"
+          className="border-t border-border bg-background/95 backdrop-blur-md xl:hidden"
         >
           <div className="site-container flex flex-col py-3">
             {navItems.map((item, index) => {
