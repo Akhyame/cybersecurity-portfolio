@@ -54,7 +54,7 @@ export function Hero() {
         <div className="relative mt-2 flex w-full items-center justify-center lg:ml-auto lg:h-full lg:justify-end">
           <div className="relative h-[420px] w-full max-w-[360px] overflow-hidden sm:h-[460px] sm:max-w-[420px] lg:ml-auto lg:h-[540px] lg:w-[76%] lg:max-w-[560px]">
             <Image
-              src="/images/siham-portfolio-portrait-final.png"
+              src="/images/siham-portfolio-portrait-2026.webp"
               alt="Professional portrait of Siham Akhyame"
               fill
               priority
