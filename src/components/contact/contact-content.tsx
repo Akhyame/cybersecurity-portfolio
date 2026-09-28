@@ -63,12 +63,12 @@ export function ContactContent() {
                   LinkedIn
                 </span>
                 <a
-                  href="https://linkedin.com/in/siham-akhyame"
+                  href="https://www.linkedin.com/in/siham-akhyame-05b529231/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-1 inline-block text-slate-100 transition-colors hover:text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                  className="mt-1 inline-block max-w-full break-all text-slate-100 transition-colors hover:text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                 >
-                  linkedin.com/in/siham-akhyame
+                  linkedin.com/in/siham-akhyame-05b529231/
                 </a>
               </li>
 
@@ -107,7 +107,7 @@ export function ContactContent() {
               <ButtonLink href="https://github.com/Akhyame" variant="secondary">
                 GitHub
               </ButtonLink>
-              <ButtonLink href="https://linkedin.com/in/siham-akhyame" variant="secondary">
+              <ButtonLink href="https://www.linkedin.com/in/siham-akhyame-05b529231/" variant="secondary">
                 LinkedIn
               </ButtonLink>
             </div>
