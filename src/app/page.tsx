@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ContactCta } from "@/components/home/contact-cta";
 import { CoreSkills } from "@/components/home/core-skills";
 import { FeaturedProject } from "@/components/home/featured-project";
+import { FeaturedCertificates } from "@/components/home/featured-certificates";
 import { Hero } from "@/components/home/hero";
 import { ShortAbout } from "@/components/home/short-about";
 
@@ -18,6 +19,7 @@ export default function Home() {
       <ShortAbout />
       <FeaturedProject />
       <CoreSkills />
+      <FeaturedCertificates />
       <ContactCta />
     </>
   );

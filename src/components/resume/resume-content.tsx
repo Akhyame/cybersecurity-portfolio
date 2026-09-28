@@ -345,6 +345,9 @@ export function ResumeContent() {
             </Card>
           ))}
         </div>
+        <div className="mt-8">
+          <ButtonLink href="/certificates" variant="secondary">View Certificates</ButtonLink>
+        </div>
       </Section>
 
       <Section>
