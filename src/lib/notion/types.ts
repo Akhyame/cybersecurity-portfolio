@@ -33,7 +33,6 @@ export type PortfolioProject = {
   skills: string[];
   githubUrl: string | null;
   linkedinPostUrl: string | null;
-  reportUrl: string | null;
   projectDate: string | null;
   difficulty: string | null;
   slug: string | null;

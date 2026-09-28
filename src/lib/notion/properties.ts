@@ -257,7 +257,6 @@ export function mapNotionPageToProject(page: unknown): PortfolioProject {
     skills: multiSelect(properties["Skills"] ?? null),
     githubUrl: url(properties["GitHub URL"] ?? null),
     linkedinPostUrl: url(properties["LinkedIn Post URL"] ?? properties["Demo URL"] ?? null),
-    reportUrl: url(properties["Report URL"] ?? null),
     projectDate: date(properties["Project Date"] ?? null),
     difficulty: select(properties["Difficulty"] ?? null),
     slug: richText(properties["Slug"] ?? null) || null,

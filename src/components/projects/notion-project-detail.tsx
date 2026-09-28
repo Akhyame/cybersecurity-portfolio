@@ -97,11 +97,6 @@ export function NotionProjectDetail({ project, blocks }: NotionProjectDetailProp
                   GitHub repository
                 </ButtonLink>
               ) : null}
-              {project.reportUrl ? (
-                <ButtonLink href={project.reportUrl} variant="secondary" className="w-full">
-                  Technical documentation
-                </ButtonLink>
-              ) : null}
               {project.reportPdf && isSafeExternalUrl(project.reportPdf.url) ? (
                 <ButtonLink href={project.reportPdf.url} variant="secondary" className="w-full">
                   Academic report PDF
